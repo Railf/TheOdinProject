@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'lib/player'
 require_relative 'lib/board'
 
-player1 = Player.new('X')
-player2 = Player.new('Y')
-board   = Board.new
+board = Board.new
 
-# until board.game_over == True
+def heading
+  system 'clear'
+  puts "Tic Tac Toe\n\n"
+end
 
-# end
+until board.game_over?
+  heading
+  puts board
+  board.used_moves
+  board.prompt_player
+end
