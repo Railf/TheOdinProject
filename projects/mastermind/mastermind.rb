@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'lib/setup'
-require_relative 'lib/game'
+require_relative 'lib/player_solver'
+require_relative 'lib/computer_solver'
 
 setup = Setup.new
 
 setup.prompt_for_code_maker
-setup.player_code_maker? ? setup.prompt_for_sequence : setup.generate_sequence
 
-game = Game.new(setup.code_maker, setup.sequence)
+game = setup.computer_code_maker? ? PlayerSolver.new : ComputerSolver.new
+game.begin
 
-p game.code_maker
 p game.sequence
