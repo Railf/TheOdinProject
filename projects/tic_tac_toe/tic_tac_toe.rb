@@ -12,6 +12,9 @@ end
 until board.game_over?
   heading
   puts board
-  board.used_moves
   board.prompt_player
 end
+
+heading
+puts board
+puts board.result
