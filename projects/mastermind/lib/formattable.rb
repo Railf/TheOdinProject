@@ -14,16 +14,20 @@ module Formattable
     puts "   (R)ed, (O)range, (Y)ellow, (G)reen, (B)lue, or (P)urple\n"
     puts "2) Your code must be four colors in length.\n"
     puts "3) Your code can contain a color more than once.\n\n"
-    puts 'What is your code sequence?'
+    puts "What is your code sequence?\n\n"
   end
 
-  def prompt_player_solver
+  def prompt_player_solver_with_instructions
     puts "Player,\n\n"
     puts "Please guess the chosen code sequence using the following rules:\n\n"
     puts "1) The code is composed of letters that represent colors:\n"
     puts "   (R)ed, (O)range, (Y)ellow, (G)reen, (B)lue, or (P)urple\n"
     puts "2) The code must be four colors in length.\n"
     puts "3) The code can contain a color more than once.\n\n"
-    puts 'What do you believe is the chosen code sequence?'
+    puts "What do you believe is the chosen code sequence?\n\n"
+  end
+
+  def prompt_player_solver
+    puts "What do you believe is the chosen code sequence? (ROYGBP)\n\n"
   end
 end

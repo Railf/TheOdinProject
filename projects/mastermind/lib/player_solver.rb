@@ -1,18 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'formattable'
+require_relative 'solver'
 
 # PlayerSolver - The representation of the game and its state, in which the Player solves.
-class PlayerSolver
-  include Formattable
-  attr_reader :game_over, :sequence
-
-  def initialize
-    @valid_colors = %w[R O Y G B P]
-    @game_over = false
-    @sequence = []
-  end
-
+class PlayerSolver < Solver
   def begin
     generate_sequence
     prompt_for_answer
@@ -24,26 +15,14 @@ class PlayerSolver
 
   def prompt_for_answer
     header
-    prompt_player_solver
-    validate_sequence
-  end
+    prompt_player_solver_with_instructions
+    capture_guess
 
-  def validate_sequence
-    sequence = gets.chomp
-
-    until sequence.length == 4 && sequence_contains_valid_characters(sequence)
-      puts 'Please provide a sequence that follows the rules.'
-      sequence = gets.chomp
+    until @game_over
+      header
+      show_record
+      prompt_player_solver
+      capture_guess
     end
-
-    sequence.upcase.split('')
-  end
-
-  def sequence_contains_valid_characters(sequence)
-    sequence.split('').each do |color|
-      return false unless @valid_colors.include?(color.upcase)
-    end
-
-    true
   end
 end

@@ -9,12 +9,11 @@ class Setup
 
   def initialize
     @code_maker = ''
-    @sequence = []
   end
 
   def prompt_for_code_maker
     header
-    puts "Would you like the computer to be the code maker (1),\nor would you like to be the code maker (2)?"
+    puts "Would you like the computer to be the code maker (1),\nor would you like to be the code maker (2)?\n\n"
     option = gets.chomp
 
     until ('1'...'3').include?(option)
