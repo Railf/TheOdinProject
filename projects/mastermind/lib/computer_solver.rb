@@ -28,10 +28,18 @@ class ComputerSolver < Solver
     @ratings.push(score_guess(@guesses[-1]))
   end
 
+  # https://www.youtube.com/watch?v=Okm_t5T1PiA @ 28:25
+  # TODO: Score each possible_combination
   def generate_sequence
     sleep(2)
     sequence = []
-    4.times { sequence.push(@valid_colors.sample) }
+    if @guesses.empty?
+      pair = @valid_colors.sample(2)
+      2.times { sequence.push(pair[0]) }
+      2.times { sequence.push(pair[1]) }
+    else
+      4.times { sequence.push(@valid_colors.sample) }
+    end
 
     sequence
   end
