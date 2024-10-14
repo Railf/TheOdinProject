@@ -61,4 +61,10 @@ class Solver
 
     { 'Correct': correct.length, 'Misplaced': misplaced.length }
   end
+
+  def game_over?
+    return unless @guesses[-1] == @sequence || @guesses.length == 12
+
+    @game_over = true
+  end
 end
