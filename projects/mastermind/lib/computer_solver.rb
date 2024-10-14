@@ -5,13 +5,52 @@ require_relative 'solver'
 # ComputerSolver - The representation of the game and its state, in which the Computer solves.
 class ComputerSolver < Solver
   def begin
-    prompt_for_sequence
+    prompt_player_for_sequence
+    execute_computer_solve
   end
 
-  def prompt_for_sequence
+  def prompt_player_for_sequence
     header
     prompt_computer_solver
     @sequence = validate_sequence
+  end
+
+  def execute_computer_solve
+    header
+    communicate_next_step_to_player
+    sleep(2)
+    capture_guess
+    game_cycle
+  end
+
+  def capture_guess
+    @guesses.push(generate_sequence)
+    @ratings.push(score_guess(@guesses[-1]))
+  end
+
+  def generate_sequence
+    sleep(2)
+    sequence = []
+    4.times { sequence.push(@valid_colors.sample) }
+
+    sequence
+  end
+
+  def game_cycle
+    until @game_over
+      header
+      show_record
+      capture_guess
+      game_over?
+    end
+
+    header
+    show_record
+    declare_winner
+  end
+
+  def possible_combinations
+    @valid_colors.repeated_permutation(4).to_a
   end
 
   def declare_winner

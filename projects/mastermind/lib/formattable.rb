@@ -27,6 +27,11 @@ module Formattable
     puts "What do you believe is the chosen code sequence?\n\n"
   end
 
+  def communicate_next_step_to_player
+    puts "Player,\n\n"
+    puts "The computer will now attempt to determine your code.\n\n"
+  end
+
   def prompt_player_solver
     puts "What do you believe is the chosen code sequence? (ROYGBP)\n\n"
   end
