@@ -9,10 +9,6 @@ class PlayerSolver < Solver
     prompt_for_answer
   end
 
-  def generate_sequence
-    4.times { @sequence.push(@valid_colors.sample) }
-  end
-
   def prompt_for_answer
     header
     prompt_player_solver_with_instructions
@@ -36,9 +32,9 @@ class PlayerSolver < Solver
 
   def declare_winner
     if @sequence == @guesses[-1]
-      puts "Player wins!\nThe sequence was: #{@sequence[0]} #{@sequence[1]} #{@sequence[2]} #{@sequence[3]}\n\n"
+      puts "Player wins!\nThe code was: #{@sequence[0]} #{@sequence[1]} #{@sequence[2]} #{@sequence[3]}\n\n"
     else
-      puts "Computer wins!\nThe sequence was: #{@sequence[0]} #{@sequence[1]} #{@sequence[2]} #{@sequence[3]}\n\n"
+      puts "Computer wins!\nThe code was: #{@sequence[0]} #{@sequence[1]} #{@sequence[2]} #{@sequence[3]}\n\n"
     end
   end
 end

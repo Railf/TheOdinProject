@@ -15,6 +15,10 @@ class Solver
     @ratings = []
   end
 
+  def generate_sequence
+    4.times { @sequence.push(@valid_colors.sample) }
+  end
+
   def show_record
     record = @guesses.each_with_index.reduce(String.new) do |rows, (guess, index)|
       guesses = "#{guess[0]} #{guess[1]} #{guess[2]} #{guess[3]}"
@@ -51,15 +55,26 @@ class Solver
   end
 
   def score_guess(guess)
-    correct = guess.each_with_index.each_with_object([]) do |(color, index), verdict|
-      verdict.push(color) if @sequence[index] == color
-    end
-
-    misplaced = guess.each.each_with_object([]) do |color, verdict|
-      verdict.push(color) if (@sequence - correct).include?(color)
-    end
+    correct   = correct_colors_in_guess(guess)
+    misplaced = misplaced_colors_in_guess(guess, correct)
 
     { 'Correct': correct.length, 'Misplaced': misplaced.length }
+  end
+
+  def correct_colors_in_guess(guess)
+    guess.each_with_index.each_with_object([]) do |(color, index), verdict|
+      verdict.push(color) if @sequence[index] == color
+    end
+  end
+
+  def misplaced_colors_in_guess(guess, correct)
+    claimed = []
+    guess.each.each_with_object([]) do |color, verdict|
+      if (@sequence - correct - claimed).include?(color)
+        verdict.push(color)
+        claimed.push(color)
+      end
+    end
   end
 
   def game_over?

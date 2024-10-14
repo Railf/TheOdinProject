@@ -13,4 +13,12 @@ class ComputerSolver < Solver
     prompt_computer_solver
     @sequence = validate_sequence
   end
+
+  def declare_winner
+    if @sequence == @guesses[-1]
+      puts "Computer wins!\nThe code was: #{@sequence[0]} #{@sequence[1]} #{@sequence[2]} #{@sequence[3]}\n\n"
+    else
+      puts "Player wins!\nThe code was: #{@sequence[0]} #{@sequence[1]} #{@sequence[2]} #{@sequence[3]}\n\n"
+    end
+  end
 end
