@@ -22,9 +22,10 @@ class Solver
   def show_record
     record = @guesses.each_with_index.reduce(String.new) do |rows, (guess, index)|
       guesses = "#{guess[0]} #{guess[1]} #{guess[2]} #{guess[3]}"
-      ratings = "#{@ratings[index][:Correct]} correct; #{@ratings[index][:Misplaced]} misplaced\n"
+      ratings = "#{@ratings[index][:Correct]} correct; #{@ratings[index][:Misplaced]} misplaced"
 
-      rows + "#{guesses} | #{ratings}"
+      # rows + "#{guesses} | #{ratings} | #{@all_combinations.length} | #{@all_ratings.length}\n"
+      rows + "#{guesses} | #{ratings}\n"
     end
 
     puts "#{record}\n\n"
@@ -32,7 +33,7 @@ class Solver
 
   def capture_guess
     @guesses.push(validate_sequence)
-    @ratings.push(score_guess(@guesses[-1]))
+    @ratings.push(score_guess(@guesses[-1], @sequence))
   end
 
   def validate_sequence
@@ -54,23 +55,23 @@ class Solver
     true
   end
 
-  def score_guess(guess)
-    correct   = correct_colors_in_guess(guess)
-    misplaced = misplaced_colors_in_guess(guess, correct)
+  def score_guess(guess, answer)
+    correct   = correct_colors_in_guess(guess, answer)
+    misplaced = misplaced_colors_in_guess(guess, answer, correct)
 
     { 'Correct': correct.length, 'Misplaced': misplaced.length }
   end
 
-  def correct_colors_in_guess(guess)
+  def correct_colors_in_guess(guess, answer)
     guess.each_with_index.each_with_object([]) do |(color, index), verdict|
-      verdict.push(color) if @sequence[index] == color
+      verdict.push(color) if answer[index] == color
     end
   end
 
-  def misplaced_colors_in_guess(guess, correct)
+  def misplaced_colors_in_guess(guess, answer, correct)
     claimed = []
     guess.each.each_with_object([]) do |color, verdict|
-      if (@sequence - correct - claimed).include?(color)
+      if (answer - correct - claimed).include?(color)
         verdict.push(color)
         claimed.push(color)
       end
