@@ -36,11 +36,10 @@ class ComputerSolver < Solver
     @ratings.push(score_guess(@guesses[-1], @sequence))
   end
 
-  # https://www.youtube.com/watch?v=Okm_t5T1PiA @ 30:52
   def generate_sequence
     sleep(2)
 
-    sequence = @guesses.empty? ? play_first_move : play_not_first_move
+    @guesses.empty? ? play_first_move : play_not_first_move
   end
 
   def play_first_move
