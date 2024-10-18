@@ -24,7 +24,6 @@ class Solver
       guesses = "#{guess[0]} #{guess[1]} #{guess[2]} #{guess[3]}"
       ratings = "#{@ratings[index][:Correct]} correct; #{@ratings[index][:Misplaced]} misplaced"
 
-      # rows + "#{guesses} | #{ratings} | #{@all_combinations.length} | #{@all_ratings.length}\n"
       rows + "#{guesses} | #{ratings}\n"
     end
 
